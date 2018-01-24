@@ -1,0 +1,87 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+"""
+Created on Sun Oct 19 16:29:09 2014
+
+@author: vinayakumar R
+"""
+
+import numpy as np
+import os
+from hpelm import ELM
+import hpelm
+
+curdir = os.path.dirname(__file__)
+pX = os.path.join(curdir, "../dataset_tests/iris/maltrte/train.txt")
+pY = os.path.join(curdir, "../dataset_tests/iris/maltrte/class.txt")
+pT = os.path.join(curdir, "../dataset_tests/iris/maltrte/test.txt")
+
+
+X = np.loadtxt(pX)
+Y = np.loadtxt(pY)
+T = np.loadtxt(pT)
+print(type(X))
+
+print "sigmoid with multi class error"
+elm = ELM(1804,9)
+elm.add_neurons(150, "sigm")
+elm.train(X, Y, "c")
+Yh = elm.predict(X)
+
+
+print "sigmoid with MSE"
+elm = hpelm.ELM(1804, 9)
+elm.add_neurons(150, "sigm")
+elm.train(X, Y)
+Y1 = elm.predict(X)
+err = elm.error(Y1, Y)
+print err
+
+print "rbf_12 with multi class error"
+elm = hpelm.ELM(1804, 9)
+elm.add_neurons(150, "rbf_l2")
+elm.train(X, Y, 'c')
+Y1 = elm.predict(X)
+err = elm.error(Y1, Y)
+print err
+
+
+print "rbf_11 with multi class error"
+elm = hpelm.ELM(1804, 9)
+elm.add_neurons(150, "rbf_l1")
+elm.train(X, Y, 'c')
+Y1 = elm.predict(X)
+err = elm.error(Y1, Y)
+print err
+print(str(elm))
+
+print "rbf_linf with multi class error"
+elm = hpelm.ELM(1804, 9)
+elm.add_neurons(150, "rbf_linf")
+elm.train(X, Y, 'c')
+Y1 = elm.predict(X)
+err = elm.error(Y1, Y)
+print err
+
+
+print "tanh with multi class error"
+elm = hpelm.ELM(1804, 9)
+elm.add_neurons(150, "tanh")
+elm.train(X, Y, 'c')
+Y1 = elm.predict(X)
+err = elm.error(Y1, Y)
+print err
+
+print "lin with multi class error"
+elm = hpelm.ELM(1804, 9)
+elm.add_neurons(150, "lin")
+elm.train(X, Y, 'c')
+Y1 = elm.predict(X)
+err = elm.error(Y1, Y)
+print err
+
+
+
+
+
+
